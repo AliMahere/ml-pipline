@@ -6,7 +6,7 @@ __version__ = "0.0.0"
 
 REPO_NAME = "ml-pipline"
 AUTHOR_USER_NAME = "AliMahere"
-SRC_REPO = "ml-pipline"
+SRC_REPO = "mlpipline"
 AUTHOR_EMAIL = "alimahera2a@gmail.com"
 
 setuptools.setup(

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI xmi.version="2.1" xmlns:UML="http://schema.omg.org/spec/UML/2.1">
+  <UML:Model xmi.id="model" name="Model">
+    <UML:Package xmi.id="mlpipeline" name="mlpipeline">
+      <UML:Class xmi.id="DataIngestion" name="DataIngestion">
+        <UML:Attribute xmi.id="source" name="source" type="String"/>
+        <UML:Attribute xmi.id="destination" name="destination" type="String"/>
+        <UML:Operation xmi.id="read_data" name="read_data" returnType="DataFrame"/>
+        <UML:Operation xmi.id="write_data" name="write_data">
+          <UML:Parameter xmi.id="data" name="data" type="DataFrame"/>
+        </UML:Operation>
+      </UML:Class>
+      <UML:Class xmi.id="DataLake" name="DataLake">
+        <UML:Attribute xmi.id="storage_path" name="storage_path" type="String"/>
+        <UML:Operation xmi.id="store_data" name="store_data">
+          <UML:Parameter xmi.id="data" name="data" type="DataFrame"/>
+          <UML:Parameter xmi.id="path" name="path" type="String"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="load_data" name="load_data" returnType="DataFrame">
+          <UML:Parameter xmi.id="path" name="path" type="String"/>
+        </UML:Operation>
+      </UML:Class>
+      <UML:Class xmi.id="DataWarehouse" name="DataWarehouse">
+        <UML:Attribute xmi.id="connection_string" name="connection_string" type="String"/>
+        <UML:Operation xmi.id="load_data" name="load_data" returnType="DataFrame">
+          <UML:Parameter xmi.id="query" name="query" type="String"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="save_data" name="save_data">
+          <UML:Parameter xmi.id="data" name="data" type="DataFrame"/>
+          <UML:Parameter xmi.id="table" name="table" type="String"/>
+        </UML:Operation>
+      </UML:Class>
+      <UML:Class xmi.id="FeatureStore" name="FeatureStore">
+        <UML:Attribute xmi.id="store_path" name="store_path" type="String"/>
+        <UML:Operation xmi.id="save_features" name="save_features">
+          <UML:Parameter xmi.id="features" name="features" type="DataFrame"/>
+          <UML:Parameter xmi.id="entity" name="entity" type="String"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="load_features" name="load_features" returnType="DataFrame">
+          <UML:Parameter xmi.id="entity" name="entity" type="String"/>
+        </UML:Operation>
+      </UML:Class>
+      <UML:Class xmi.id="ModelTraining" name="ModelTraining">
+        <UML:Attribute xmi.id="training_data" name="training_data" type="DataFrame"/>
+        <UML:Attribute xmi.id="model" name="model" type="Any"/>
+        <UML:Operation xmi.id="train_model" name="train_model" returnType="Any">
+          <UML:Parameter xmi.id="data" name="data" type="DataFrame"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="evaluate_model" name="evaluate_model" returnType="dict">
+          <UML:Parameter xmi.id="data" name="data" type="DataFrame"/>
+        </UML:Operation>
+      </UML:Class>
+      <UML:Class xmi.id="ExperimentTracking" name="ExperimentTracking">
+        <UML:Attribute xmi.id="experiment_id" name="experiment_id" type="String"/>
+        <UML:Operation xmi.id="start_experiment" name="start_experiment" returnType="String">
+          <UML:Parameter xmi.id="name" name="name" type="String"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="log_metrics" name="log_metrics">
+          <UML:Parameter xmi.id="metrics" name="metrics" type="dict"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="log_parameters" name="log_parameters">
+          <UML:Parameter xmi.id="params" name="params" type="dict"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="end_experiment" name="end_experiment"/>
+      </UML:Class>
+      <UML:Class xmi.id="ModelRegistry" name="ModelRegistry">
+        <UML:Attribute xmi.id="registry_path" name="registry_path" type="String"/>
+        <UML:Operation xmi.id="register_model" name="register_model">
+          <UML:Parameter xmi.id="model" name="model" type="Any"/>
+          <UML:Parameter xmi.id="version" name="version" type="int"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="load_model" name="load_model" returnType="Any">
+          <UML:Parameter xmi.id="version" name="version" type="int"/>
+        </UML:Operation>
+      </UML:Class>
+      <UML:Class xmi.id="ModelServing" name="ModelServing">
+        <UML:Attribute xmi.id="model" name="model" type="Any"/>
+        <UML:Operation xmi.id="load_model" name="load_model">
+          <UML:Parameter xmi.id="version" name="version" type="int"/>
+        </UML:Operation>
+        <UML:Operation xmi.id="predict" name="predict" returnType="DataFrame">
+          <UML:Parameter xmi.id="data" name="data" type="DataFrame"/>
+        </UML:Operation>
+      </UML:Class>
+      <UML:Class xmi.id="RestAPI" name="RestAPI">
+        <UML:Attribute xmi.id="api" name="api" type="FastAPI/Django/Flask"/>
+        <UML:Operation xmi.id="create_endpoints" name="create_endpoints"/>
+        <UML:Operation xmi.id="start_server" name="start_server"/>
+      </UML:Class>
+      <UML:Class xmi.id="Monitoring" name="Monitoring">
+        <UML:Attribute xmi.id="metrics" name="metrics" type="dict"/>
+        <UML:Operation xmi.id="collect_metrics" name="collect_metrics" returnType="dict"/>
+        <UML:Operation xmi.id="visualize_metrics" name="visualize_metrics">
+          <UML:Parameter xmi.id="metrics" name="metrics" type="dict"/>
+        </UML:Operation>
+      </UML:Class>
+    </UML:Package>
+  </UML:Model>
+</XMI>
